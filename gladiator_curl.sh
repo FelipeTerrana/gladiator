@@ -1,17 +1,18 @@
 #!/bin/bash
 
 source params.sh
-source functions.sh
+source aux_functions.sh
 
 
 
-# checkForError
-# emulateHumanSlowness
+checkForError
+emulateHumanSlowness
 
 source authenticate.sh
+source authed_functions.sh
 
-# checkStamina
-# enterArena
+checkStamina
+enterArena
 eatFish
 
 closeAndExit
