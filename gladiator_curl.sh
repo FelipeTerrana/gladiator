@@ -5,6 +5,13 @@ source aux_functions.sh
 
 
 
+if [ $# -gt 0 ]
+then
+    ARENA_ROUTE="$TEAM_ARENA_ROUTE"
+fi
+
+
+
 checkForError
 emulateHumanSlowness
 
