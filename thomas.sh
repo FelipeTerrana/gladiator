@@ -14,6 +14,9 @@ MINIMAL_STAMINA=55
 
 source params.sh
 source aux_functions.sh
+
+emulateHumanSlowness
+
 source authenticate.sh
 
 
@@ -56,8 +59,6 @@ getCaptchaUrl()
 
 
 
-printf "" > "$LOG_FILE"
-
 while :
 do
     FIRST_RESPONSE=$(curl "$TRAIN_ROUTE")
@@ -66,7 +67,6 @@ do
 
     if [ $TRAINS_LEFT -gt 0 ]
     then
-        log "$TRAINS_LEFT treinos sobrando"
     else
         log "Treinos esgotados, saindo"
         break
@@ -97,10 +97,9 @@ do
 
     if [ -z "$CAPTCHA_URL" ]
     then
-        log "Sem captcha"
         curl --data tecnica=24 --data Submit8=Atacar "$TRAIN_ROUTE" > /dev/null
     else
-        log "Captcha necessário"
+        log "$TRAINS_LEFT treinos sobrando, captcha necessário"
         while :
         do
             curl "$CAPTCHA_URL" --output captcha.png
@@ -108,7 +107,6 @@ do
 
             if [ -n "$CAPTCHA_TEXT" ]
             then
-                log "Captcha revertido..."
                 ATTACK_RESPONSE=$(curl --data confirmacao="$CAPTCHA_TEXT" --data tecnica=24 --data Submit8=Atacar "$TRAIN_ROUTE")
                 MISSED_CAPTCHA=$(echo "$ATTACK_RESPONSE" | grep -o "OPS... Você digitou o código errado!")
 

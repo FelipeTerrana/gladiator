@@ -18,7 +18,6 @@ RUN eval $(ssh-agent -s) && \
     ssh-add && \
     git clone git@gitlab.com:felipetcazetta/gladiator.git
 
-COPY crontabfile ./
-RUN crontab crontabfile
-
 WORKDIR gladiator/
+
+RUN crontab crontabfile
