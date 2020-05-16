@@ -32,4 +32,4 @@
 30 20 * * * cd /gladiator/ && ./gladiator_curl.sh team
 30 23 * * * cd /gladiator/ && ./gladiator_curl.sh team
 
-30 03 * * * cd /gladiator/ && ./thomas.sh
+15 03 * * * cd /gladiator/ && ./thomas.sh
