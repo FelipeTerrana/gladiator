@@ -1,0 +1,1 @@
+OPPONENT=32
