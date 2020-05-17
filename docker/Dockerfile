@@ -20,4 +20,4 @@ RUN eval $(ssh-agent -s) && \
 
 WORKDIR gladiator/
 
-RUN crontab crontabfile
+RUN crontab crontab/crontabfile

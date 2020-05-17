@@ -34,4 +34,4 @@
 
 30 00 * * * cd /gladiator/ && ./thomas.sh
 
-00 03 * * * cd /gladiator/ && docker/autopull.sh
+00 03 * * * cd /gladiator/ && crontab/autopull.sh
