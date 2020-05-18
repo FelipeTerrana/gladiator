@@ -27,10 +27,10 @@
 30 18 * * * cd /gladiator/ && ./gladiator_curl.sh
 30 22 * * * cd /gladiator/ && ./gladiator_curl.sh
 
-30 08 * * * cd /gladiator/ && ./gladiator_curl.sh team
-30 14 * * * cd /gladiator/ && ./gladiator_curl.sh team
-30 20 * * * cd /gladiator/ && ./gladiator_curl.sh team
-30 23 * * * cd /gladiator/ && ./gladiator_curl.sh team
+30 08 * * * cd /gladiator/ && ./gladiator_curl.sh --team
+30 14 * * * cd /gladiator/ && ./gladiator_curl.sh --team
+30 20 * * * cd /gladiator/ && ./gladiator_curl.sh --team
+30 23 * * * cd /gladiator/ && ./gladiator_curl.sh --team
 
 30 00 * * * cd /gladiator/ && ./thomas.sh
 

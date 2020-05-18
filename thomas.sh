@@ -15,7 +15,10 @@ MINIMAL_STAMINA=55
 source params.sh
 source aux_functions.sh
 
-emulateHumanSlowness
+if [ $# -eq 0 ]
+then
+    emulateHumanSlowness
+fi
 
 source authenticate.sh
 
@@ -65,9 +68,8 @@ do
 
     TRAINS_LEFT=$(getTrainsLeft "$FIRST_RESPONSE")
 
-    if [ $TRAINS_LEFT -gt 0 ]
+    if [ $TRAINS_LEFT -eq 0 ]
     then
-    else
         log "Treinos esgotados, saindo"
         break
     fi
