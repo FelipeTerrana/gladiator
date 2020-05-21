@@ -32,6 +32,6 @@
 30 20 * * * cd /gladiator/ && ./gladiator_curl.sh --team
 30 23 * * * cd /gladiator/ && ./gladiator_curl.sh --team
 
-30 00 * * * cd /gladiator/ && ./thomas.sh
+45 16 * * * cd /gladiator/ && ./thomas.sh
 
 00 03 * * * cd /gladiator/ && crontab/autopull.sh
