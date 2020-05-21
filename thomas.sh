@@ -105,7 +105,7 @@ do
         while :
         do
             curl "$CAPTCHA_URL" --output captcha.png
-            CAPTCHA_TEXT=$(python uncaptcha.py captcha.png)
+            CAPTCHA_TEXT=$(/usr/local/bin/python uncaptcha.py captcha.png)
 
             if [ -n "$CAPTCHA_TEXT" ]
             then
