@@ -1,66 +1,18 @@
 #!/bin/bash
 
-source opponent.sh
-
-BASE_ROUTE="https://www.dbzrpgonline.com/"
-TRAIN_ROUTE="https://www.dbzrpgonline.com/?treino"
-START_TRAIN_ROUTE="https://www.dbzrpgonline.com/?treino&com=$OPPONENT"
-MARKET_ROUTE="https://www.dbzrpgonline.com/?mercado"
-HOUSE_ROUTE="https://www.dbzrpgonline.com/?casa"
-
-MINIMAL_STAMINA=55
-
-
-
 source params.sh
 source aux_functions.sh
+
+
 
 if [ $# -eq 0 ]
 then
     emulateHumanSlowness
 fi
 
+
+
 source authenticate.sh
-
-
-
-getStamina()
-{
-    STAMINA_PATTERN='(?<=<div class="status-stamina"> <p>)[0-9]*(?= / [0-9]*</p>)'
-    STAMINA=$(echo $1 | grep -oP "$STAMINA_PATTERN")
-
-    echo "$STAMINA"
-}
-
-
-
-getTrainsLeft()
-{
-    TRAINS_PATTERN='(?<=VOC&Ecirc; AINDA PODE REALIZAR <strong><font color="#00BFFF">)[0-9]*(?=</font></strong> TREINOS)'
-    TRAINS=$(echo $1 | grep -oP "$TRAINS_PATTERN")
-
-    if [ -z "$TRAINS" ]
-    then
-        echo "0"
-    else
-        echo "$TRAINS"
-    fi
-}
-
-
-
-getCaptchaUrl()
-{
-    CAPTCHA_PATTERN='(?<=<img src=")securimage.php\?rand=[0-9]*(?=" alt="" align="absmiddle">)'
-    CAPTCHA_URL=$(echo "$1" | grep -oP "$CAPTCHA_PATTERN")
-
-    if [ -n "$CAPTCHA_URL" ]
-    then
-        echo "$BASE_ROUTE""$CAPTCHA_URL"
-    fi
-}
-
-
 
 while :
 do
@@ -76,7 +28,7 @@ do
 
     CURRENT_STAMINA=$(getStamina "$FIRST_RESPONSE")
 
-    if [ $CURRENT_STAMINA -lt $MINIMAL_STAMINA ]
+    if [ $CURRENT_STAMINA -lt $TRAIN_COST ]
     then
         log "Estamina baixa, comendo semente..."
 
@@ -84,7 +36,16 @@ do
         curl --data quantidade[4]=1 --data usar[4]=Usar "$HOUSE_ROUTE" > /dev/null
     fi
 
-    START_TRAIN_RESPONSE=$(curl "$START_TRAIN_ROUTE")
+    STRENGTH=$(getStrength "$FIRST_RESPONSE")
+    OPPONENT=$(getOpponent "$OPPONENT")
+
+    if [ -z $OPPONENT ]
+    then
+        log "Erro na seleção automática do adversário"
+        OPPONENT=$DEFAULT_OPPONENT
+    fi
+
+    START_TRAIN_RESPONSE=$(curl "$START_TRAIN_ROUTE""$OPPONENT")
     START_TRAIN_SUCCESS=$(echo "$START_TRAIN_RESPONSE" | grep -o "Treino iniciado com sucesso\|Area de Treino")
 
     if [ -z "$START_TRAIN_SUCCESS" ]
@@ -127,4 +88,4 @@ do
     fi
 done
 
-echo " ------------------------------------------- " >> "$LOG_FILE"
+closeAndExit
