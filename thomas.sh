@@ -37,7 +37,7 @@ do
     fi
 
     STRENGTH=$(getStrength "$FIRST_RESPONSE")
-    OPPONENT=$(getOpponent "$OPPONENT")
+    OPPONENT=$(getOpponent "$STRENGTH")
 
     if [ -z $OPPONENT ]
     then
