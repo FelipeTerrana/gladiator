@@ -12,7 +12,6 @@ fi
 
 
 
-checkForError
 emulateHumanSlowness
 
 source authenticate.sh
